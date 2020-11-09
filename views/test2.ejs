@@ -1,0 +1,106 @@
+<%-include('body/head')-%>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+        crossorigin="anonymous">
+</script>
+<style>
+
+.feature.video {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  height: 0;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 56.25%;
+}
+.video-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+iframe {
+    height: calc(100% + 250px);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+    margin-top: -125px;
+}
+</style>
+<div class="feature video">
+    <div class="video-bg" style="background-image:url('http://img.youtube.com/vi/XUxpEYnR9JM/maxresdefault.jpg')">
+    <div id="video" class="video-wrapper">
+      <div id="player"></div>
+      <!--We inline the JS so the script runs as soon as the page loads.-->
+      <script type="text/javascript">
+        var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        /* if the browser width is more than iPad Pro size, render the iframe
+        I keep this conditional in here because I don't often use autoplaying
+        vides on mobile devices. You can uncomment th conditional below if this
+        is not needed in your case.
+        */
+        if ( viewportWidth > 1024) {
+          var tag = document.createElement('script');
+          tag.src = "https://www.youtube.com/iframe_api";
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          var player;
+          function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+              // the ID we stored earlier
+              videoId: 'XUxpEYnR9JM',
+              /*
+              The following params are part of Youtube's JS API.
+  
+              You can view all the parameters here:
+              https://developers.google.com/youtube/player_parameters?hl=en
+  
+              The ones I've included below produces the most minimal player
+              as Youtube allows but feel free to edit these params as you wish.
+              Be sure  to leave the mute tag as is (this is necessary
+              for autoplaying the video on browsers)
+              */
+              playerVars: {
+                'autoplay': 1,
+                'rel': 0,
+                'showinfo': 0,
+                'modestbranding': 1,
+                'playsinline': 1,
+                'showinfo': 0,
+                'rel': 0,
+                'controls': 0,
+                'color':'white',
+                'loop': 1,
+                'mute': 1
+              },
+              events: {
+                'onReady': onPlayerReady
+              }
+            });
+          }
+          function onPlayerReady() {
+            player.playVideo();
+
+            //IMPORTANT
+            //do not delete the below if you want your video to work properly on all browsers
+            setTimeout(() => {  player.unMute(); }, 3000);
+          }
+        }
+      </script>
+     </div>
+    </div>
+  </div>
+<%-include('body/foot')-%>
