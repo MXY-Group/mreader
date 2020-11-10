@@ -51,6 +51,11 @@ export default async function Scrap(ctx) {
                     const jsonac = await fetch(`https://mangadex.org/api/v2/manga/${ctx.params.id}`);
                     const jsondatac = await jsonac.json();
 
+                    const chapters = await fetch(`https://mangadex.org/api/v2/manga/${ctx.params.id}/chapters`);
+                    const chapterdata = await chapters.json();
+
+                    const chapter = chapterdata.data['chapters'].filter(chapter => chapter.id == ctx.params.chapter);
+
                     await jsondata.data['pages'].forEach(async (page) => {
 
                         var server = jsondata.data['server'];
@@ -61,9 +66,9 @@ export default async function Scrap(ctx) {
                         const imgbuf = await img.arrayBuffer();
                         const imgbuf2 = new Uint8Array(imgbuf);
 
-                        await ensureDirSync(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${ctx.params.chapter}`);
+                        await ensureDirSync(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}`);
 
-                        await Deno.writeFile(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${ctx.params.chapter}/${page}`, imgbuf2).then((file) => console.log(`${page} has been written.`));
+                        await Deno.writeFile(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}/${page}`, imgbuf2).then((file) => console.log(`${page} has been written.`));
                     })
 
                     ctx.response.body = "Done";
