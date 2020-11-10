@@ -66,9 +66,9 @@ export default async function Scrap(ctx) {
                         const imgbuf = await img.arrayBuffer();
                         const imgbuf2 = new Uint8Array(imgbuf);
 
-                        await ensureDirSync(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}`);
+                        await ensureDirSync(`${Deno.cwd()}/static/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}`);
 
-                        await Deno.writeFile(`${Deno.cwd()}/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}/${page}`, imgbuf2).then((file) => console.log(`${page} has been written.`));
+                        await Deno.writeFile(`${Deno.cwd()}/static/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}/${page}`, imgbuf2).then((file) => console.log(`${page} has been written.`));
                     })
 
                     ctx.response.body = "Done";
