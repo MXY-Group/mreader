@@ -2,7 +2,7 @@
 //@ts-nocheck
 
 import { ensureDirSync } from "../../deps.ts";
-import Chapter from "../../backbone/models/chapter.ts";
+import Chapter from "../models/chapter.ts";
 import Manga from "../models/manga.ts";
 
 export default async function Scrap(ctx, db) {
