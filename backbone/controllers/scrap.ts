@@ -2,8 +2,10 @@
 //@ts-nocheck
 
 import { ensureDirSync } from "../../deps.ts";
+import Chapter from "../../backbone/models/chapter.ts";
+import Manga from "../models/manga.ts";
 
-export default async function Scrap(ctx) {
+export default async function Scrap(ctx, db) {
     try {
         const regexc = /\/chapters/;
 
@@ -47,6 +49,7 @@ export default async function Scrap(ctx) {
                 const regexcd = /\/download/;
 
                 if(regexcd.exec(ctx.request.url)) {
+                    await db.link([Manga, Chapter]);
 
                     const jsonac = await fetch(`https://mangadex.org/api/v2/manga/${ctx.params.id}`);
                     const jsondatac = await jsonac.json();
@@ -70,6 +73,33 @@ export default async function Scrap(ctx) {
 
                         await Deno.writeFile(`${Deno.cwd()}/static/mangas/${jsondatac.data['title']}/chapters/${chapter[0].title}/${page}`, imgbuf2).then((file) => console.log(`${page} has been written.`));
                     })
+
+                    const mangac = await Manga.where('title', jsondatac.data['title']).get();
+
+                    if(mangac.length == 0) {
+
+                        await Manga.create({
+                            "title": jsondatac.data['title'],
+                            "status": "Ongoing",
+                            "totalchapters": chapterdata.data['chapters'].filter(chapter => chapter.language == 'gb').length,
+                            "chapters": 1
+                        });
+    
+                        await Chapter.create({
+                            "title": chapter[0].title,
+                            "uploader": 0,
+                            "manga": 1
+                        });
+
+                    } else {
+
+                        await Chapter.create({
+                            "title": chapter[0].title,
+                            "uploader": 0,
+                            "manga": 1
+                        });
+                        
+                    }
 
                     ctx.response.body = "Done";
 

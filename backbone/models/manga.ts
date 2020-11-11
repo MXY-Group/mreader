@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "../../deps.ts";
 
-export const Manga = class Manga extends Model {
+class Manga extends Model {
     static table = "mangas";
 
     static fields = {
@@ -14,10 +14,6 @@ export const Manga = class Manga extends Model {
         totalchapters: DataTypes.INTEGER,
         chapters: DataTypes.INTEGER
     };
-
-    id!: number;
-    title!: string;
-    status!: string;
-    totalchapters!: number;
-    chapters!: number;
 }
+
+export default Manga;

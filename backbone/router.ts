@@ -16,10 +16,10 @@ router.get("/setup", async (ctx) => Setup(ctx, db))
 
 // Scraper of Mangadex
 
-router.get("/scrap/:id/chapter/:chapter", async (ctx) => Scrap(ctx))
-router.get("/scrap/:id/chapter/:chapter/download", async (ctx) => Scrap(ctx))
-router.get("/scrap/:id/chapter/:chapter/:page", async (ctx) => Scrap(ctx))
-router.get("/scrap/:id", async (ctx) => Scrap(ctx))
-router.get("/scrap/:id/chapters", async (ctx) => Scrap(ctx))
+router.get("/scrap/:id/chapter/:chapter", async (ctx) => Scrap(ctx, db))
+router.get("/scrap/:id/chapter/:chapter/download", async (ctx) => Scrap(ctx, db))
+router.get("/scrap/:id/chapter/:chapter/:page", async (ctx) => Scrap(ctx, db))
+router.get("/scrap/:id", async (ctx) => Scrap(ctx, db))
+router.get("/scrap/:id/chapters", async (ctx) => Scrap(ctx, db))
 
 export default router;

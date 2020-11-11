@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "../../deps.ts";
 
-export const Chapter = class Chapter extends Model {
+class Chapter extends Model {
     static table = "chapters";
 
     static fields = {
@@ -19,3 +19,5 @@ export const Chapter = class Chapter extends Model {
     uploader!: number;
     manga!: number;
 }
+
+export default Chapter;

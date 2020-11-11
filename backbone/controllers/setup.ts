@@ -2,8 +2,8 @@
 //@ts-nocheck
 
 import { User } from "../../backbone/models/user.ts";
-import { Chapter } from "../../backbone/models/chapter.ts";
-import { Manga } from "../../backbone/models/manga.ts";
+import Chapter from "../../backbone/models/chapter.ts";
+import Manga from "../../backbone/models/manga.ts";
 
 export default function Setup(ctx, db) {
     db.link([User, Chapter, Manga]);
