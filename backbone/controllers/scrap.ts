@@ -91,6 +91,11 @@ export default async function Scrap(ctx, db) {
                             "manga": 1
                         });
 
+                        const img = await fetch(`https://mangadex.org/images/manga/${ctx.params.id}.jpg`);
+                        const imgbuf = await img.arrayBuffer();
+                        const imgbuf2 = new Uint8Array(imgbuf);
+                        await Deno.writeFile(`${Deno.cwd()}/static/mangas/${jsondatac.data['title']}/cover.jpg`, imgbuf2);
+
                     } else {
 
                         await Chapter.create({
