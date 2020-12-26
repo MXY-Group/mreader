@@ -1,1 +1,2 @@
-# Manga Reader/Scraper Published via MXY Group - Created by Mar0xy
+# Manga Reader/Scraper
+###### Published via MXY Group - Created by Mar0xy
