@@ -1,5 +1,5 @@
 export { Application, Router, send } from "https://deno.land/x/oak@v6.2.0/mod.ts";
-export { hash, verify } from "https://github.com/Mar0xy/deno-argon2/master/lib/mod.ts";
+export { hash, verify } from "https://raw.githubusercontent.com/Mar0xy/deno-argon2/master/lib/mod.ts";
 export { DataTypes, Database, Model } from 'https://deno.land/x/denodb/mod.ts';
 export * as path from "https://deno.land/std@0.76.0/path/mod.ts";
 export { ensureDir, ensureDirSync } from "https://deno.land/std@0.76.0/fs/mod.ts";
